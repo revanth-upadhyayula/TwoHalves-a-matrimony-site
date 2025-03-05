@@ -1,0 +1,478 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Body */
+body {
+    margin: 0 -17px;
+    padding: 0 17px;
+    overflow-y: auto;
+    height: 100vh;
+    background-color: white;
+    color: black;
+}
+
+/* Grid Layout */
+.container {
+    display: grid;
+    grid-template-areas: "left-side right-side"
+                         "footer footer";
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10vw;
+}
+
+/* Main Content */
+.item2 {
+    grid-area: left-side;
+    background: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.item3 {
+    grid-area: right-side;
+    background: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item4 {
+    grid-area: footer;
+    background: lightgray;
+}
+
+/* Header */
+header {
+    margin: 0 -17px;
+    padding: 0 17px;
+    height: 5vh;
+    background: white;
+    padding: 2.3rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Typography */
+h1 {
+    font-family: "Baskervville SC", serif;
+    color: black;
+    font-size: 3vw;
+    font-weight: bolder;
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.p {
+    font-family: "Marcellus SC", serif;
+    font-size: large;
+    margin-top: -116px; 
+    margin-left: 20px;
+    padding-left: 10px;
+    color: black;
+    line-height: 6;
+}
+
+.pink {
+    color: rgb(222, 118, 131);
+}
+
+.blue {
+    color: rgb(160, 188, 229);
+}
+
+.text {
+    margin: 75px;
+    padding: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.type {
+    min-height: 3em;  
+    line-height: 3em;  
+    display: flex;
+    align-items: center;
+}
+
+/* Buttons */
+.navbar button {
+    width: 130px;
+}
+
+button {
+    background-color: rgb(160, 188, 229);
+    color: white;
+    font-family: "EB Garamond", serif;
+    border: none;
+    font-size: 1em;
+    border-radius: 30px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Image */
+.main-photo {
+    width: 40vw;
+    height: auto; 
+    max-height: 75vh; 
+}
+
+/* Main Content */
+.main-content {
+    width: 100vw;
+    height: 80vh;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    margin-top: 15px;
+    width: 10vw;
+    height: auto;
+    color: white;
+    font-size: 28px;
+}
+
+/* Footer */
+.footer {
+    width: 100vw;
+    height: 25vh;
+    background: white;
+}
+
+/* Features Section */
+.features {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Marcellus SC', serif;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.feature-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgb(160, 188, 229);
+}
+
+.feature-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #1d1d1d;
+}
+
+.feature-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Testimonials Section */
+.testimonials {
+    background-color: #f9f9f9;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.testimonials h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Marcellus SC', serif;
+}
+
+.testimonial-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 0;
+}
+::-webkit-scrollbar {
+    display: none; /* Hides scrollbars */
+}
+.testimonial-item {
+    scroll-snap-align: start;
+    flex: 0 0 300px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    font-style: italic;
+}
+
+.testimonial-item p:first-child {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.testimonial-item p strong {
+    font-size: 16px;
+    color: #1d1d1d;
+}
+
+
+/* Contact Section */
+.contact {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Marcellus SC', serif;
+}
+
+.contact form {
+    display: inline-block;
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.contact input[type="text"],
+.contact input[type="email"],
+.contact textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+.contact input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #1d72b8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact input[type="submit"]:hover {
+    background-color: #155a8a;
+}
+
+/* Dark Mode */
+/* Uncomment if dark mode is implemented */
+/* body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode header {
+    background-color: black;
+}
+
+body.dark-mode .item2, 
+body.dark-mode .item3 {
+    background-color: black;
+}
+
+body.dark-mode .footer {
+    background-color: rgb(39, 37, 37);
+}
+
+body.dark-mode h1 {
+    color: aliceblue;
+}
+
+body.dark-mode .p {
+    color: aliceblue;
+}
+
+body.dark-mode .pink {
+    color: white;
+}
+
+body.dark-mode .blue {
+    color: white;
+}
+
+body.dark-mode .main-content {
+    background: black;
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+body.dark-mode button {
+    background-color: aliceblue;
+    color: black;
+}
+
+#toggleTheme {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 20px;
+    color: black;
+}
+
+body.dark-mode #toggleTheme {
+    color: white;
+} */
+
+/* Media Queries */
+@media (max-width: 1100px) {
+    .item3 {
+        display: none;
+    }
+
+    .item2 {
+        justify-content: center;
+        text-align: center;
+    }
+    .text {
+        width: 61vw;
+    }
+    .p {
+        line-height: 1;
+        width: 65vw;
+    }
+    h1 {
+        font-size: 2.5vw;
+    }
+
+    button {
+        font-size: small;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 1100px) and (min-width: 421px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .item3 {
+        display: none;
+    }
+
+    .logo {
+        width: 120px;
+    }
+    .item2 {
+        justify-content: center;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: calc(3vw + 1.5vh);
+    }
+    .p {
+        width: 50vw;
+        font-size: 2.5vw;
+        line-height: 1;
+        margin-top: -49px;
+    }
+    .text {
+        width: 50vw;
+        padding: 50px;
+    }
+
+    button {
+        width: 100px;
+    }
+}
+
+@media (max-width: 420px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: calc(3vw + 1.5vh);
+    }
+    .text {
+        width: 69vw;
+    }
+    .p {
+        font-size: large;
+        line-height: 1;
+        margin-top: -49px;
+    }
+
+    header {
+        justify-content: space-between;
+    }
+
+    header .logo {
+        display: inline-block;
+        margin-right: auto;
+        width: 25vw;
+    }
+
+    #connectButton {
+        display: none;
+    }
+
+    #toggleTheme {
+        margin-left: auto;
+    }
+}

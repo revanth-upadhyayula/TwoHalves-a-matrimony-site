@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Marcellus+SC&family=Playwrite+CU:wght@100..400&family=SUSE:wght@100..800&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.1/css/boxicons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Layout 1</title>
+    <link rel="stylesheet" href="p.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-picture">
+                <img src="profile.jpg" alt="Profile Picture">
+            </div>
+            <div class="header-info">
+                <h1>Angelina Jolie</h1>
+                <p>Web Developer at Google<br>Location: New York, USA</p>
+            </div>
+        </div>
+        <button id="editProfile" class="editprofile">Edit Profile</button>
+
+        <div class="profile-details">
+            <div class="photo-gallery">
+                <h3>Gallery</h3>
+                <div class="photos">
+                    <img src="photo1.jpg" alt="Photo 1" onclick="openLightbox(this)">
+                    <img src="photo2.jpg" alt="Photo 2" onclick="openLightbox(this)">
+                    <!-- Add more photos as needed -->
+                </div>
+            </div>
+            
+            <!-- Lightbox -->
+            <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                <span class="close" onclick="closeLightbox()">&times;</span>
+                <img id="lightbox-img" src="" alt="Expanded Photo">
+            </div>
+
+            <div class="information-section">
+                <div class="section">
+                    <h2>Personal Info</h2>
+                    <p><strong>Name:</strong> Angelina Jolie</p>
+                    <p><strong>Family name:</strong> Joney family</p>
+                    <p><strong>Date of birth:</strong> 03 Jan 1998</p>
+                    <p><strong>Weight:</strong> 65kg</p>
+                    <p><strong>Religion:</strong> Any</p>
+                    <p><strong>Company:</strong> Google</p>
+                    <p><strong>Salary:</strong> $1000 p/m</p>
+    
+                    <p><strong>Father's name:</strong> John Smith</p>
+                    <p><strong>Age:</strong> 24</p>
+                    <p><strong>Height:</strong> 167cm</p>
+                    <p><strong>Degree:</strong> MSC Computer Science</p>
+                </div>
+    
+                <div class="section">
+                    <h2>Contact Info</h2>
+                    <p><strong>Phone:</strong> +92 (8800) 68 – 8960</p>
+                    <p><strong>Email:</strong> angelinajoliewed@gmail.com</p>
+                    <p><strong>Address:</strong> 28800 Orchard Lake Road, Suite 180, Farmington Hills, USA</p>
+                    
+            </div>
+
+        </div>
+        <!-- <h2>Social Media</h2> -->
+        <div class="social-media">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bx-shield-x'></i></a>
+            <a href="#"><i class='bx bxl-linkedin-square'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+        </div>
+        </div>
+    </div>
+</body>
+<script src="p.js"></script>
+</html>

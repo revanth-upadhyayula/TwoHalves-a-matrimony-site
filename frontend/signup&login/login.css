@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    /* margin: 0 -17px;
+    padding: 0 17px; */
+    overflow-y: auto;
+    height: 100vh;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    display: grid;
+    grid-template-areas: "left-side right-side"
+                         "footer footer";
+    grid-template-columns: 1fr 1fr;
+    /* height: 90vh; */
+    position: relative;
+}
+
+/* Logo Styling */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 6vw;
+}
+
+.logo {
+    max-width: 130px; /* Adjust size as needed */
+    height: auto;
+}
+.left-side {
+    grid-area: left-side;
+    background: white;
+    color: rgb(160, 188, 229);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10%;
+    height: 100vh;
+}
+
+.left-side h2 {
+    font-size: 2rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.left-side p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+}
+
+.left2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: auto;
+}
+
+.right-side {
+    grid-area: right-side;
+    background: linear-gradient(270deg,rgb(210, 224, 244),white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10%;
+    height: 100vh;
+}
+
+.right-side > div:first-child {
+    font-family: "Baskervville SC", serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.right-side h2, .right-side p {
+    background: linear-gradient(270deg, rgb(52 100 169),rgb(196, 215, 242));
+    /* text-align: center; */
+    background-clip: text;
+    /* margin-bottom: 20px; */
+    -webkit-text-fill-color: transparent;
+    color: white;
+    margin: 0;
+}
+
+.form-container {
+    background: transparent;
+    
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-container h2 {
+    color: white;
+    font-family: "Marcellus SC", serif;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-container label {
+    background: linear-gradient(45deg, rgb(52 100 169), #ffffff);
+    /* text-align: center; */
+    background-clip: text;
+    /* margin-bottom: 20px; */
+    -webkit-text-fill-color: transparent;
+    color: white;
+    font-size: 1em;
+    font-family: "EB Garamond", serif;
+}
+
+.form-container input {
+    font-family: "DM Sans", sans-serif;
+    background: linear-gradient(45deg, rgb(52 100 169), #ffffff);
+    /* text-align: center; */
+    background-clip: text;
+    /* margin-bottom: 20px; */
+    -webkit-text-fill-color: transparent;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid rgb(52 100 169);
+    font-size: 1rem;
+    background-color: transparent;
+    color: white;
+}
+
+.form-container input::placeholder {
+    color: white;
+}
+
+.form-container input[type="submit"] {
+    background: linear-gradient(268deg, rgb(52 100 169), #e0edff);
+    /* text-align: center; */
+    /* background-clip: text; */
+    /* margin-bottom: 20px; */
+    -webkit-text-fill-color: white;
+    /* background-color: rgb(160, 188, 229); */
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: rgb(105, 145, 205);
+}
+
+.form-container p {
+    color: white;
+    text-align: center;
+}
+
+.form-container a {
+    color: rgb(75, 108, 159);
+    text-decoration: none;
+}
+
+.or-divider {
+    text-align: center;
+    color: white;
+    margin: 20px 0;
+    position: relative;
+}
+
+.or-divider span {
+    /* Match your form background color */
+    padding: 0 10px;
+    position: relative;
+    z-index: 20;
+}
+
+.or-divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff; /* Line color */
+    z-index: 0;
+}
+
+/* General styling for the social icons container */
+.social-icons {
+    margin-top: 20px;
+    text-align: center; /* Center the icons horizontally */
+}
+
+/* Styling for each social icon link */
+.social-icon {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px; /* Adjust the icon size */
+    color: rgb(52 100 169); /* Default icon color */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+    text-decoration: none; /* Remove underline from links */
+}
+
+/* Styling for the icon on hover */
+.social-icon:hover {
+    color: rgb(138, 165, 203); /* Color when hovering over the icon */
+}
+
+/* Dark Mode */
+/* body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode .left-side {
+    background: #33241b;
+}
+
+body.dark-mode .right-side {
+    background: #0d0d0d;
+}
+
+body.dark-mode .form-container {
+    background: #1b1b1b;
+}
+
+body.dark-mode .form-container input {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .form-container input::placeholder {
+    color: #ccc;
+}
+
+body.dark-mode .footer {
+    background: #1a1a1a;
+} */
+
+/* Media Queries */
+@media (max-width: 1100px) {
+    .container {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .left-side {
+        display: none;
+    }
+
+    .left1 {
+        display: none;
+    }
+
+    .right-side {
+        height: 100vh;
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: white;
+    }
+    .right-side h2, .right-side p{
+        color:  rgb(160, 188, 229);
+    }
+
+    .form-container label {
+        color: rgb(160, 188, 229);
+    }
+
+    .form-container p {
+        color: rgb(160, 188, 229);
+        text-align: center;
+    }
+
+    .form-container input::placeholder {
+        color: rgb(160, 188, 229);
+    }
+
+    .form-container input {
+        border-color: rgb(160, 188, 229);
+    }
+
+    .footer {
+        order: 3;
+        width: 100vw;
+    }
+
+    .form-container {
+        width: 80%;
+        margin-top: 20px;
+    }
+}
+@media (max-width: 420px) {
+    .left-side {
+        padding: 20px;
+    }
+
+    .left-side h2 {
+        font-size: 1.5rem;
+    }
+
+    .right-side {
+        padding: 20px;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+
+    .footer {
+        padding: 10px;
+    }
+}

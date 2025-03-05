@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Marcellus+SC&family=Playwrite+CU:wght@100..400&family=SUSE:wght@100..800&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Edit</title>
+    <link rel="stylesheet" href="profile.css">
+    <style>
+        .form-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .input-wrapper input {
+            flex: 1;
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            pointer-events: none; /* Make input fields read-only initially */
+        }
+        .edit-icon {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        .editable {
+            pointer-events: auto; /* Enable editing when class is added */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="ProfileSubmitServlet" method="post" enctype="multipart/form-data">
+            <h2>Basic Info</h2>
+
+            <label for="name">Name:</label>
+        <div class="input-wrapper">
+            <span id="name-display"></span> <!-- Display Value -->
+            <input type="text" id="name" name="name" placeholder="Enter your Full Name" class="hidden"> <!-- Editable Input -->
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('name')">
+        </div>
+
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <div class="input-wrapper">
+            <span id="email-display"></span>
+            <input type="email" id="email" name="email" placeholder="Enter E-mail" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('email')">
+        </div>
+
+        <!-- Phone -->
+        <label for="phone">Phone:</label>
+        <div class="input-wrapper">
+            <span id="phone-display"></span>
+            <input type="tel" id="phone" name="phone" placeholder="Enter Phone Number" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('phone')">
+        </div>
+
+        <!-- Profile Photo -->
+        <label for="profile_photo">Profile Photo:</label>
+        <div class="input-wrapper">
+            <span id="profile_photo-display"></span>
+            <input type="file" id="profile_photo" name="profile_photo" accept="image/*" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('profile_photo')">
+        </div>
+
+        <!-- Additional Photos -->
+        <label for="additional_photos">Additional Photos:</label>
+        <div class="input-wrapper">
+            <span id="additional_photos-display"></span>
+            <input type="file" id="additional_photos" name="additional_photos" accept="image/*" multiple class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('additional_photos')">
+        </div>
+
+        <h2>Advanced Bio</h2>
+
+        <!-- Gender -->
+        <label for="gender">Gender:</label>
+        <div class="input-wrapper">
+            <span id="gender-display"></span>
+            <input type="text" id="gender" name="gender" placeholder="Male/Female" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('gender')">
+        </div>
+
+        <!-- City -->
+        <label for="city">City:</label>
+        <div class="input-wrapper">
+            <span id="city-display"></span>
+            <input type="text" id="city" name="city" placeholder="Enter City" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('city')">
+        </div>
+
+        <!-- Date of Birth -->
+        <label for="dob">Date of Birth:</label>
+        <div class="input-wrapper">
+            <span id="dob-display"></span>
+            <input type="date" id="dob" name="dob" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('dob')">
+        </div>
+
+        <!-- Height -->
+        <label for="height">Height:</label>
+        <div class="input-wrapper">
+            <span id="height-display"></span>
+            <input type="text" id="height" name="height" placeholder="Enter Height" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('height')">
+        </div>
+
+        <!-- Weight -->
+        <label for="weight">Weight:</label>
+        <div class="input-wrapper">
+            <span id="weight-display"></span>
+            <input type="text" id="weight" name="weight" placeholder="Enter Weight" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('weight')">
+        </div>
+
+        <!-- Father's Name -->
+        <label for="father_name">Father's Name:</label>
+        <div class="input-wrapper">
+            <span id="father_name-display"></span>
+            <input type="text" id="father_name" name="father_name" placeholder="Enter Father's Name" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('father_name')">
+        </div>
+
+        <!-- Mother's Name -->
+        <label for="mother_name">Mother's Name:</label>
+        <div class="input-wrapper">
+            <span id="mother_name-display"></span>
+            <input type="text" id="mother_name" name="mother_name" placeholder="Enter Mother's Name" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('mother_name')">
+        </div>
+
+        <!-- Community -->
+        <label for="community">Community:</label>
+        <div class="input-wrapper">
+            <span id="community-display"></span>
+            <input type="text" id="community" name="community" placeholder="Enter Community" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('community')">
+        </div>
+
+        <!-- Address -->
+        <label for="address">Address:</label>
+        <div class="input-wrapper">
+            <span id="address-display"></span>
+            <input type="text" id="address" name="address" placeholder="Enter Address" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('address')">
+        </div>
+
+        <h2>Job Details</h2>
+
+        <!-- Company Name -->
+        <label for="company">Company Name:</label>
+        <div class="input-wrapper">
+            <span id="company-display"></span>
+            <input type="text" id="company" name="company" placeholder="Enter Company Name" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('company')">
+        </div>
+
+        <!-- Position -->
+        <label for="position">Position:</label>
+        <div class="input-wrapper">
+            <span id="position-display"></span>
+            <input type="text" id="position" name="position" placeholder="Enter Position" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('position')">
+        </div>
+
+        <!-- Salary -->
+        <label for="salary">Salary:</label>
+        <div class="input-wrapper">
+            <span id="salary-display"></span>
+            <input type="text" id="salary" name="salary" placeholder="Enter Salary" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('salary')">
+        </div>
+
+        <!-- Job Location -->
+        <label for="job_location">Job Location:</label>
+        <div class="input-wrapper">
+            <span id="job_location-display"></span>
+            <input type="text" id="job_location" name="job_location" placeholder="Enter Job Location" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('job_location')">
+        </div>
+
+        <h2>Social Media Details</h2>
+
+        <!-- Instagram -->
+        <label for="instagram">Instagram:</label>
+        <div class="input-wrapper">
+            <span id="instagram-display"></span>
+            <input type="url" id="instagram" name="instagram" placeholder="Enter Instagram URL" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('instagram')">
+        </div>
+
+        <!-- LinkedIn -->
+        <label for="linkedin">LinkedIn:</label>
+        <div class="input-wrapper">
+            <span id="linkedin-display"></span>
+            <input type="url" id="linkedin" name="linkedin" placeholder="Enter LinkedIn URL" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('linkedin')">
+        </div>
+
+        <!-- Facebook -->
+        <label for="facebook">Facebook:</label>
+        <div class="input-wrapper">
+            <span id="facebook-display"></span>
+            <input type="url" id="facebook" name="facebook" placeholder="Enter Facebook URL" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('facebook')">
+        </div>
+
+        <!-- YouTube -->
+        <label for="youtube">YouTube:</label>
+        <div class="input-wrapper">
+            <span id="youtube-display"></span>
+            <input type="url" id="youtube" name="youtube" placeholder="Enter YouTube URL" class="hidden">
+            <img src="pen-icon.png" class="edit-icon" alt="Edit" onclick="toggleVisibility('youtube')">
+        </div>
+
+        <input type="submit" value="Save">
+        </form>
+    </div>
+
+    <script>
+        function toggleVisibility(fieldId) {
+            const displaySpan = document.getElementById(`${fieldId}-display`);
+            const inputField = document.getElementById(fieldId);
+
+            if (displaySpan.classList.contains('hidden')) {
+                displaySpan.classList.remove('hidden');
+                inputField.classList.add('hidden');
+            } else {
+                displaySpan.classList.add('hidden');
+                inputField.classList.remove('hidden');
+            }
+
+            // Show the save button when any field is editable
+            document.getElementById('save-button').style.display = 'block';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+                fetch('/ProfileSubmitServlet')
+                    .then(response => response.json())
+                    .then(data => populateProfile(data))
+                    .catch(error => console.error('Error fetching profile data:', error));
+            });
+
+            function populateProfile(data) {
+                // Populate fields with fetched data
+                document.getElementById('name-display').textContent = data.name || '';
+                document.getElementById('email-display').textContent = data.email || '';
+                document.getElementById('phone-display').textContent = data.phone || '';
+                document.getElementById('profile_photo-display').textContent = data.profile_photo || '';
+                document.getElementById('additional_photos-display').textContent = data.additional_photos ? data.additional_photos.join(', ') : '';
+                document.getElementById('gender-display').textContent = data.gender || '';
+                document.getElementById('city-display').textContent = data.city || '';
+                document.getElementById('dob-display').textContent = data.dob || '';
+                document.getElementById('height-display').textContent = data.height || '';
+                document.getElementById('weight-display').textContent = data.weight || '';
+                document.getElementById('father_name-display').textContent = data.father_name || '';
+                document.getElementById('mother_name-display').textContent = data.mother_name || '';
+                document.getElementById('community-display').textContent = data.community || '';
+                document.getElementById('address-display').textContent = data.address || '';
+                document.getElementById('company-display').textContent = data.company || '';
+                document.getElementById('position-display').textContent = data.position || '';
+                document.getElementById('salary-display').textContent = data.salary || '';
+                document.getElementById('job_location-display').textContent = data.job_location || '';
+                document.getElementById('instagram-display').textContent = data.instagram || '';
+                document.getElementById('linkedin-display').textContent = data.linkedin || '';
+                document.getElementById('facebook-display').textContent = data.facebook || '';
+                document.getElementById('youtube-display').textContent = data.youtube || '';
+
+            }
+    </script>
+</body>
+</html>
