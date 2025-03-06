@@ -27,7 +27,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         
         if (response.ok) {
             alert('Registration Successful!');
-            window.location.href = 'login.html'; // Redirect to login page
+            window.location.href = '/frontend/profile/profile.html'; // Redirect to login page
         } else {
             alert(data.message);
         }
