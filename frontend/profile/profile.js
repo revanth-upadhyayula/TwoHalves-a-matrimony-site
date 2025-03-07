@@ -2,15 +2,15 @@ document.getElementById("profileForm").addEventListener("submit", async (event) 
     event.preventDefault();
 
     // ✅ Retrieve User Data from Local Storage
-    const user = JSON.parse(localStorage.getItem("user")); // Make sure user exists
-
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.id) {
         alert("User is not logged in. Please login first.");
         return;
     }
 
+    console.log("Submitting profile for user ID:", user.id); // Debugging log
+
     const formData = new FormData();
-    formData.append("userId", user.id);
     formData.append("name", document.getElementById("name").value);
     formData.append("email", document.getElementById("email").value);
     formData.append("phone", document.getElementById("phone").value);
@@ -32,7 +32,7 @@ document.getElementById("profileForm").addEventListener("submit", async (event) 
     formData.append("facebook", document.getElementById("facebook").value);
     formData.append("youtube", document.getElementById("youtube").value);
 
-    // Handle file uploads
+    // ✅ Handle file uploads
     const profilePhotoInput = document.getElementById("profile_photo");
     if (profilePhotoInput.files.length > 0) {
         formData.append("profile_photo", profilePhotoInput.files[0]);
@@ -45,26 +45,26 @@ document.getElementById("profileForm").addEventListener("submit", async (event) 
         }
     }
 
-    // ✅ Get JWT Token from Local Storage (Assuming it's stored after login)
+    // ✅ Get JWT Token from Local Storage
     const token = localStorage.getItem("token");
 
     try {
         const response = await fetch("http://localhost:5000/api/profile", {
             method: "POST",
             body: formData,
-            headers: {
-                "Authorization": `Bearer ${token}` // ✅ Send JWT Token
-            }
+            headers: { "Authorization": `Bearer ${token}` }
         });
-        console.log(response);
+
+        console.log("Server Response:", response);
         const data = await response.json();
+
         if (response.ok) {
-            alert("Profile updated successfully!");
-            window.location.href = "/frontend/profilepage/p.html";
+            // alert("Profile updated successfully!");
+            window.location.href = window.location.origin + "/frontend/profilepage/p.html";
+            console.log(window.location.href);
         } else {
             alert(`Error: ${data.message}`);
         }
-
     } catch (error) {
         console.error("Error submitting profile:", error);
         alert("An error occurred while submitting your profile.");

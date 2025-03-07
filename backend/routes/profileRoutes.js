@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import authMiddleware from "../middleware/auth.js";
 import Profile from "../models/Profile.js";
 
 const router = express.Router();
@@ -11,13 +12,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// ✅ Save or Update Profile
-router.post("/", upload.fields([
+// ✅ Save or Update Profile (Authenticated User)
+router.post("/", authMiddleware, upload.fields([
     { name: "profile_photo", maxCount: 1 },
     { name: "additional_photos", maxCount: 5 }
 ]), async (req, res) => {
     try {
-        const userId = req.body.userId; // Replace with req.user.id if using authentication
+        const userId = req.user.id; // ✅ Get User ID from JWT Token
 
         const profileData = {
             userId,
@@ -48,10 +49,12 @@ router.post("/", upload.fields([
         let profile = await Profile.findOne({ userId });
 
         if (profile) {
-            profile = await Profile.findOneAndUpdate({ userId }, profileData, { new: true });
+            // ✅ Update existing profile
+            profile = await Profile.findOneAndUpdate({ userId }, { $set: profileData }, { new: true });
             return res.status(200).json({ message: "Profile updated successfully!", profile });
         }
 
+        // ✅ Create new profile if it doesn't exist
         profile = new Profile(profileData);
         await profile.save();
         res.status(201).json({ message: "Profile created successfully!", profile });
@@ -61,10 +64,10 @@ router.post("/", upload.fields([
     }
 });
 
-// ✅ Get Profile Data
-router.get("/", async (req, res) => {
+// ✅ Get Profile Data (Authenticated User)
+router.get("/", authMiddleware, async (req, res) => {
     try {
-        const userId = req.query.userId; // Replace with req.user.id if using authentication
+        const userId = req.user.id; // ✅ Get User ID from JWT Token
         const profile = await Profile.findOne({ userId });
 
         if (!profile) return res.status(404).json({ message: "Profile not found" });
