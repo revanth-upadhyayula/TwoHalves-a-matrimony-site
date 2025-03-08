@@ -26,17 +26,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             `${profile.position} at ${profile.company}<br>Work Location: ${profile.job_location}`;
 
         document.querySelector(".section:nth-child(1) p:nth-child(2)").innerHTML = `<strong>Name:</strong> ${profile.name}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(3)").innerHTML = `<strong>Family name:</strong> ${profile.community}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(4)").innerHTML = `<strong>Date of birth:</strong> ${profile.dob}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(5)").innerHTML = `<strong>Weight:</strong> ${profile.weight}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(6)").innerHTML = `<strong>Religion:</strong> ${profile.religion || "N/A"}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(7)").innerHTML = `<strong>Company:</strong> ${profile.company}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(8)").innerHTML = `<strong>Salary:</strong> ${profile.salary}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(3)").innerHTML = `<strong>Date of birth:</strong> ${profile.dob.split("T")[0]}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(4)").innerHTML = `<strong>Weight:</strong> ${profile.weight}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(5)").innerHTML = `<strong>Religion:</strong> ${profile.community}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(6)").innerHTML = `<strong>Company:</strong> ${profile.company}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(7)").innerHTML = `<strong>Salary:</strong> ${profile.salary}`;
 
-        document.querySelector(".section:nth-child(1) p:nth-child(9)").innerHTML = `<strong>Father's name:</strong> ${profile.father_name}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(10)").innerHTML = `<strong>Mother's name:</strong> ${profile.mother_name}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(11)").innerHTML = `<strong>Age:</strong> ${profile.age || "N/A"}`;
-        document.querySelector(".section:nth-child(1) p:nth-child(12)").innerHTML = `<strong>Height:</strong> ${profile.height} `;
+        document.querySelector(".section:nth-child(1) p:nth-child(8)").innerHTML = `<strong>Father's name:</strong> ${profile.father_name}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(9)").innerHTML = `<strong>Mother's name:</strong> ${profile.mother_name}`;
+        document.querySelector(".section:nth-child(1) p:nth-child(10)").innerHTML = `<strong>Height:</strong> ${profile.height} `;
 
         document.querySelector(".section:nth-child(2) p:nth-child(2)").innerHTML = `<strong>Phone:</strong> ${profile.phone}`;
         document.querySelector(".section:nth-child(2) p:nth-child(3)").innerHTML = `<strong>Email:</strong> ${profile.email}`;
@@ -67,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // ✅ Edit Profile Button
         document.getElementById("editProfile").addEventListener("click", () => {
-            window.location.href = "/frontend/profile/profile.html";
+            window.location.href = window.location.origin + "/frontend/profile/edit.html";
         });
 
     } catch (error) {

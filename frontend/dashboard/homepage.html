@@ -16,9 +16,6 @@
         <a href="#" class="logo-container"><img src="logo2.png" class="logo img" alt="Logo"></a>
         <nav>
             <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact Us</a></li>
                 <li><img src="profile.png" alt="Profile Icon" id="profileIcon" onclick="toggleProfileMenu()"></li>
             </ul>
         </nav>
@@ -27,27 +24,10 @@
     <!-- Profile Dropdown -->
     <div id="profileDropdown" class="profile-dropdown">
         <a class="profile-button" onclick="editProfile()" id="Profile">Profile</a>
-        <a href="#">Settings</a>
         <a href="#">Logout</a>
     </div>
 
     <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="profile-section">
-                <img src="profile-pic.jpg" alt="Profile Picture">
-                <h2>John Smith</h2>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Interests</a></li>
-                <li><a href="#">Chat List</a></li>
-                <li><a href="#">Plan</a></li>
-                <li><a href="#">Setting</a></li>
-                <li><a href="#">Log out</a></li>
-            </ul>
-        </div>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -89,91 +69,6 @@
         </div>
     </div>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="containers">
-            <h2>Features</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <h3>Feature One</h3>
-                    <p>Description of Feature One.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Feature Two</h3>
-                    <p>Description of Feature Two.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Feature Three</h3>
-                    <p>Description of Feature Three.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>Feature Four</h3>
-                    <p>Description of Feature Four.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="containers">
-            <h2>Testimonials</h2>
-            <div class="testimonial-slider">
-                <div class="testimonial-item">
-                    <p>"This is an amazing platform! It has greatly helped me."</p>
-                    <p><strong>- User Name</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"TwoHalves has changed  a the way I approach my goals."</p>
-                    <p><strong>- Happy Customer</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"A fantastic experience! Highly recommended."</p>
-                    <p><strong>- Another User</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"TwoHalves has changed thsee way I approach my goals."</p>
-                    <p><strong>- Happy Customer</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"A fantastic experience! Highly vry recommended."</p>
-                    <p><strong>- Another User</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"TwoHalves has changed the ht way I approach my goals."</p>
-                    <p><strong>- Happy Customer</strong></p>
-                </div>
-                <div class="testimonial-item">
-                    <p>"A fantastic experience!?? Highly recommended."</p>
-                    <p><strong>- Another User</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="containers">
-            <h2>Contact Us</h2>
-            <form action="#" method="POST">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Enter your message" rows="4" required></textarea>
-
-                <input type="submit" value="Send Message">
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <section class="footer">
-        <div class="item item4"></div>
-    </section>
 
     <!-- JavaScript -->
     <script>
