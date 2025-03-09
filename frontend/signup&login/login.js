@@ -20,7 +20,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             // ✅ Save token in localStorage for future authentication
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
-
+            localStorage.setItem('gender',data.user.gender);
+            
             // ✅ Redirect to dashboard or profile
             window.location.href = '/frontend/dashboard/homepage.html';
         } else {

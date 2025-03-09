@@ -31,41 +31,22 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <h1>Interest Requests</h1>
-            <div class="interest-request">
-                <div class="interest-user">
-                    <img src="platinum-user.jpg" alt="User Image">
-                    <div class="user-details">
-                        <h3>John Smith</h3>
-                        <p>City: Illinois • Age: 21 • Height: 5'7" • Job: Working</p>
-                        <p>Request on: 10:30 AM, 18 August 2024</p>
-                    </div>
-                    <button class="accept-btn">Accept</button>
-                    <button class="deny-btn">Deny</button>
-                </div>
 
-                <div class="interest-user">
-                    <img src="gold-user.jpg" alt="User Image">
-                    <div class="user-details">
-                        <h3>John Smith</h3>
-                        <p>City: Illinois • Age: 21 • Height: 5'7" • Job: Working</p>
-                        <p>Request on: 10:30 AM, 18 August 2024</p>
-                    </div>
-                    <button class="accept-btn">Accept</button>
-                    <button class="deny-btn">Deny</button>
-                </div>
+            <header>
+                <h1>Find Your Perfect Match</h1>
+            </header>
 
-                <div class="interest-user">
-                    <img src="free-user.jpg" alt="User Image">
-                    <div class="user-details">
-                        <h3>John Smith</h3>
-                        <p>City: Illinois • Age: 21 • Height: 5'7" • Job: Working</p>
-                        <p>Request on: 10:30 AM, 18 August 2024</p>
-                    </div>
-                    <button class="accept-btn">Accept</button>
-                    <button class="deny-btn">Deny</button>
-                </div>
-            </div>
+            <section class="filters">
+                <!-- <label>Age: <input type="number" id="age" min="18"></label> -->
+                <!-- <label>Profession: <input type="text" id="profession"></label> -->
+                <label>Community: <input type="text" id="community"></label>
+                <label>Job_location: <input type="text" id="job_location"></label>
+                <button onclick="searchProfiles()">Search</button>
+            </section>
+
+            <section id="profiles" class="profile-container"></section>
+
+
         </div>
     </div>
 
@@ -78,7 +59,7 @@
         // }
 
         // Function to show profile dropdown
-        
+
 
         // Function for editing profile
         function editProfile() {
@@ -90,6 +71,8 @@
     </script>
 
     <script src="homepage.js"></script>
+    <!-- <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="chat.js"></script> -->
 </body>
 
 </html>

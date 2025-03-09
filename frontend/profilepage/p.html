@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="p.css">
 </head>
 <body>
+    <button class="back-button" onclick="goBack()">Back</button>
+
     <div class="container">
         <div class="header">
             <div class="profile-picture">
@@ -74,4 +76,9 @@
     </div>
 </body>
 <script src="p.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </html>
