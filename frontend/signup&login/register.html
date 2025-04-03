@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimony Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-container">
+            <h1><i class="ri-user-add-line"></i> Create Your Matrimony Profile</h1>
+            <p>Fill in the details below to build your complete profile!</p>
+            <form id="register-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="full-name"><i class="ri-user-3-line"></i> Full Name</label>
+                            <input type="text" id="full-name" name="full-name" placeholder="e.g., Arjun Patel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age"><i class="ri-calendar-2-line"></i> Age</label>
+                            <input type="number" id="age" name="age" min="18" max="100" placeholder="e.g., 32" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dob"><i class="ri-calendar-event-line"></i> Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender"><i class="ri-genderless-line"></i> Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="height"><i class="ri-expand-height-line"></i> Height</label>
+                            <input type="text" id="height" name="height" placeholder="e.g., 5'10\"" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="marital-status"><i class="ri-hearts-line"></i> Marital Status</label>
+                            <select id="marital-status" name="marital-status" required>
+                                <option value="" disabled selected>Select Status</option>
+                                <option value="never-married">Never Married</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="widowed">Widowed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location"><i class="ri-map-pin-2-line"></i> Current Location</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., San Francisco, California" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hometown"><i class="ri-home-5-line"></i> Hometown</label>
+                        <input type="text" id="hometown" name="hometown" placeholder="e.g., Mumbai, India">
+                    </div>
+                </div>
+
+                <!-- About Me -->
+                <div class="form-section">
+                    <h3>About Me</h3>
+                    <div class="form-group">
+                        <label for="about"><i class="ri-user-3-line"></i> Tell us about yourself</label>
+                        <textarea id="about" name="about" placeholder="e.g., I enjoy hiking, photography, and traveling..." rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-speak-line"></i> Languages Spoken</label>
+                        <div class="tag-input">
+                            <input type="text" id="language-input" placeholder="e.g., English" />
+                            <button type="button" class="add-tag-btn" data-target="languages">Add</button>
+                        </div>
+                        <div class="tag-list" id="languages"></div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-empathize-line"></i> Interests</label>
+                        <div class="tag-input">
+                            <input type="text" id="interest-input" placeholder="e.g., Hiking" />
+                            <button type="button" class="add-tag-btn" data-target="interests">Add</button>
+                        </div>
+                        <div class="tag-list" id="interests"></div>
+                    </div>
+                </div>
+
+                <!-- Education & Career -->
+                <div class="form-section">
+                    <h3>Education & Career</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="education"><i class="ri-graduation-cap-line"></i> Highest Education</label>
+                            <input type="text" id="education" name="education" placeholder="e.g., Master's in Computer Science" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="university"><i class="ri-school-line"></i> University/College</label>
+                            <input type="text" id="university" name="university" placeholder="e.g., Stanford University">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profession"><i class="ri-briefcase-line"></i> Profession</label>
+                            <input type="text" id="profession" name="profession" placeholder="e.g., Software Engineer" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company"><i class="ri-building-line"></i> Company (Optional)</label>
+                            <input type="text" id="company" name="company" placeholder="e.g., Tech Innovations Inc.">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family Background -->
+                <div class="form-section">
+                    <h3>Family Background</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="family-type"><i class="ri-group-2-line"></i> Family Type</label>
+                            <select id="family-type" name="family-type">
+                                <option value="" disabled selected>Select Type</option>
+                                <option value="nuclear">Nuclear Family</option>
+                                <option value="joint">Joint Family</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="siblings"><i class="ri-group-line"></i> Number of Siblings</label>
+                            <input type="number" id="siblings" name="siblings" min="0" placeholder="e.g., 1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="father-occupation"><i class="ri-briefcase-line"></i> Father's Occupation</label>
+                            <input type="text" id="father-occupation" name="father-occupation" placeholder="e.g., Retired Professor">
+                        </div>
+                        <div class="form-group">
+                            <label for="mother-occupation"><i class="ri-briefcase-line"></i> Mother's Occupation</label>
+                            <input type="text" id="mother-occupation" name="mother-occupation" placeholder="e.g., Homemaker">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="family-values"><i class="ri-home-5-line"></i> Family Values</label>
+                        <input type="text" id="family-values" name="family-values" placeholder="e.g., Modern with traditional roots">
+                    </div>
+                    <div class="form-group">
+                        <label for="family-background"><i class="ri-team-line"></i> Family Background</label>
+                        <textarea id="family-background" name="family-background" placeholder="e.g., I come from a close-knit family..." rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Lifestyle -->
+                <div class="form-section">
+                    <h3>Lifestyle</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="diet"><i class="ri-restaurant-line"></i> Diet</label>
+                            <select id="diet" name="diet">
+                                <option value="" disabled selected>Select Diet</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="non-vegetarian">Non-Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="drinking"><i class="ri-goblet-2-line"></i> Drinking Habits</label>
+                            <select id="drinking" name="drinking">
+                                <option value="" disabled selected>Select</option>
+                                <option value="never">Never</option>
+                                <option value="occasionally">Occasionally</option>
+                                <option value="regularly">Regularly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="smoking"><i class="ri-smoking-line"></i> Smoking Habits</label>
+                            <select id="smoking" name="smoking">
+                                <option value="" disabled selected>Select</option>
+                                <option value="non-smoker">Non-Smoker</option>
+                                <option value="occasional">Occasional Smoker</option>
+                                <option value="regular">Regular Smoker</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fitness"><i class="ri-heart-pulse-line"></i> Fitness Routine</label>
+                            <input type="text" id="fitness" name="fitness" placeholder="e.g., Regular workouts & yoga">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partner Preferences -->
+                <div class="form-section">
+                    <h3>Partner Preferences</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pref-age-range"><i class="ri-calendar-2-line"></i> Preferred Age Range</label>
+                            <input type="text" id="pref-age-range" name="pref-age-range" placeholder="e.g., 27-34 years">
+                        </div>
+                        <div class="form-group">
+                            <label for="pref-height-range"><i class="ri-expand-height-line"></i> Preferred Height Range</label>
+                            <input type="text" id="pref-height-range" name="pref-height-range" placeholder="e.g., 5'2\" - 5'8\"">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-book-open-line"></i> Preferred Education</label>
+                        <div class="tag-input">
+                            <input type="text" id="pref-education-input" placeholder="e.g., Bachelor's" />
+                            <button type="button" class="add-tag-btn" data-target="pref-education">Add</button>
+                        </div>
+                        <div class="tag-list" id="pref-education"></div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-briefcase-line"></i> Preferred Occupation</label>
+                        <div class="tag-input">
+                            <input type="text" id="pref-occupation-input" placeholder="e.g., Engineer" />
+                            <button type="button" class="add-tag-btn" data-target="pref-occupation">Add</button>
+                        </div>
+                        <div class="tag-list" id="pref-occupation"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="partner-preferences"><i class="ri-hearts-line"></i> Partner Preferences</label>
+                        <textarea id="partner-preferences" name="partner-preferences" placeholder="e.g., Looking for someone kind, intelligent..." rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-section">
+                    <h3>Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email"><i class="ri-mail-line"></i> Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="e.g., arjun@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="ri-phone-line"></i> Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="e.g., +1 123-456-7890" required>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Submit Button -->
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn"><i class="ri-check-line"></i> Register</button>
+                    <p>Already have an account? <a href="#">Login here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="register.js"></script>
+</body>
+</html> 

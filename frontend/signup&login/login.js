@@ -21,6 +21,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('gender',data.user.gender);
+
+
+            console.log(localStorage.getItem('gender'));
             
             // ✅ Redirect to dashboard or profile
             window.location.href = '/frontend/dashboard/homepage.html';

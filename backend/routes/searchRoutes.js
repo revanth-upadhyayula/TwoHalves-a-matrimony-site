@@ -1,34 +1,34 @@
 import express from "express";
-import User from "../models/Profile.js";
+import Profile from "../models/Profile.js";
 
 const router = express.Router();
 
-
+// Search Profiles
 router.post("/search", async (req, res) => {
     try {
-        const {  community ,job_location, userGender } = req.body;
-        const oppositeGender = userGender === "Male" ? "Female" : "Male";
-        
-        // Build search query with filters
+        const { community, jobLocation, userGender } = req.body;
+        const oppositeGender = userGender === "male" ? "female" : "male";
+
         const query = { gender: oppositeGender };
         if (community) query.community = { $regex: new RegExp(community, "i") };
-        if (job_location) query.job_location = { $regex: new RegExp(job_location, "i") };
+        if (jobLocation) query.jobLocation = { $regex: new RegExp(jobLocation, "i") };
 
-
-        const profiles = await User.find(query);
+        const profiles = await Profile.find(query);
         res.json(profiles);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: "Error searching profiles", error: error.message });
     }
 });
 
+// Express Interest
 router.post("/interest", async (req, res) => {
     try {
         const { profileId, interest } = req.body;
-        // Save the interest action (you may update User model to store this)
-        res.json({ success: true });
+        // In a real app, you'd store this interest in a separate collection (e.g., Interests)
+        // For now, we'll just return a success message
+        res.json({ success: true, message: `Interest in profile ${profileId} recorded` });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: "Error recording interest", error: error.message });
     }
 });
 

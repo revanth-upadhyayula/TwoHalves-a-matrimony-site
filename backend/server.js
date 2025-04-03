@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js"; // Import authentication routes
-import profileRoutes from "./routes/profileRoutes.js"; // Import profile routes
+// import profileRoutes from "./routes/profileRoutes.js"; // Import profile routes
 import searchRoutes from "./routes/searchRoutes.js"; // Import search routes
 
 dotenv.config();
@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // ✅ Routes
 app.use("/api/auth", authRoutes);     // Authentication Routes
-app.use("/api/profile", profileRoutes); // Profile Routes
+// app.use("/api/profile", profileRoutes); // Profile Routes
 app.use("/api", searchRoutes); // Search Routes
 
 // ✅ Start Server

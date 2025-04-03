@@ -38,7 +38,7 @@ async function searchProfiles() {
     // const profession = document.getElementById("profession").value;
     const community = document.getElementById("community").value;
     const job_location = document.getElementById("job_location").value;
-    const userGender = localStorage.getItem("gender"); 
+    const userGender = localStorage.getItem('gender'); 
     console.log(userGender);
     const response = await fetch("http://localhost:5000/api/search", {
         method: "POST",
