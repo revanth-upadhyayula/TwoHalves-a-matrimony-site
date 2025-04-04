@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
 import Profile from "../models/Profile.js";
 import dotenv from "dotenv";
+import authMiddleware from "../middleware/auth.js";
 
 dotenv.config();
 
@@ -70,39 +71,46 @@ router.post('/signup', async (req, res) => {
 });
 
 // User Registration (Profile Creation)
-router.post('/register', async (req, res) => {
+router.post('/register', authMiddleware, async (req, res) => {
     try {
         const {
+            userId,
             personalInfo,
             aboutMe,
             educationCareer,
             familyBackground,
             lifestyle,
             partnerPreferences,
-            contactInfo,
-            userId // We'll pass the userId from the signup response
+            contactInfo
         } = req.body;
 
-        // Validate that userId is provided
-        if (!userId) {
-            return res.status(400).json({ message: "User ID is required" });
+        // Basic validation for required fields
+        if (
+            !userId ||
+            !personalInfo?.fullName ||
+            !personalInfo?.age ||
+            !personalInfo?.dob ||
+            !personalInfo?.gender ||
+            !personalInfo?.height ||
+            !personalInfo?.maritalStatus ||
+            !personalInfo?.location ||
+            !educationCareer?.education ||
+            !educationCareer?.profession ||
+            !contactInfo?.email ||
+            !contactInfo?.phone
+        ) {
+            return res.status(400).json({ message: 'All required fields must be provided' });
         }
 
-        // Check if user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // Check if profile already exists for this user
+        // Check if a profile already exists for this user
         const existingProfile = await Profile.findOne({ userId });
         if (existingProfile) {
-            return res.status(400).json({ message: "Profile already exists for this user" });
+            return res.status(400).json({ message: 'Profile already exists for this user' });
         }
 
-        // Create a profile for the user
-        const newProfile = new Profile({
-            userId: user._id,
+        // Create a new profile
+        const profile = new Profile({
+            userId,
             personalInfo,
             aboutMe,
             educationCareer,
@@ -112,15 +120,13 @@ router.post('/register', async (req, res) => {
             contactInfo
         });
 
-        // Log the profile data for debugging
-        // console.log('New Profile:', newProfile);
+        // Save the profile to the database
+        await profile.save();
 
-        await newProfile.save();
-
-        res.status(201).json({ message: "Profile created successfully" });
+        res.status(201).json({ message: 'Profile created successfully', profile });
     } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({ message: "Server error", error: error.message });
+        console.error('Error creating profile:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
@@ -156,42 +162,29 @@ router.post('/login', async (req, res) => {
 
 
 
-// Fetch User Profile (New Endpoint)
-router.get('/profile', authenticateToken, async (req, res) => {
+// Get the user's profile
+router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        const userId = req.userId; // Retrieved from the JWT token
-        const profile = await Profile.findOne({ userId }).populate('userId', 'email');
+        const userId = req.user.id; // Extracted from the JWT token by authMiddleware
+        const profile = await Profile.findOne({ userId });
+
         if (!profile) {
-            return res.status(404).json({ message: "Profile not found" });
+            return res.status(404).json({ message: 'Profile not found' });
         }
 
-        res.status(200).json({
-            message: "Profile retrieved successfully",
-            profile: {
-                userId: profile.userId._id,
-                email: profile.userId.email,
-                personalInfo: profile.personalInfo,
-                aboutMe: profile.aboutMe,
-                educationCareer: profile.educationCareer,
-                familyBackground: profile.familyBackground,
-                lifestyle: profile.lifestyle,
-                partnerPreferences: profile.partnerPreferences,
-                contactInfo: profile.contactInfo,
-                createdAt: profile.createdAt
-            }
-        });
+        res.status(200).json({ profile });
     } catch (error) {
-        console.error('Profile fetch error:', error);
-        res.status(500).json({ message: "Server error", error: error.message });
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
 
 
-// Update User Profile
-router.put('/update-profile', authenticateToken, async (req, res) => {
+// Update the user's profile
+router.put('/update-profile', authMiddleware, async (req, res) => {
     try {
-        const userId = req.userId; // Retrieved from the JWT token
+        const userId = req.user.id; // Extracted from the JWT token by authMiddleware
         const {
             personalInfo,
             aboutMe,
@@ -203,9 +196,9 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
         } = req.body;
 
         // Find the existing profile
-        const profile = await Profile.findOne({ userId });
+        let profile = await Profile.findOne({ userId });
         if (!profile) {
-            return res.status(404).json({ message: "Profile not found" });
+            return res.status(404).json({ message: 'Profile not found' });
         }
 
         // Update the profile fields
@@ -217,12 +210,13 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
         profile.partnerPreferences = { ...profile.partnerPreferences, ...partnerPreferences };
         profile.contactInfo = { ...profile.contactInfo, ...contactInfo };
 
+        // Save the updated profile
         await profile.save();
 
-        res.status(200).json({ message: "Profile updated successfully" });
+        res.status(200).json({ message: 'Profile updated successfully', profile });
     } catch (error) {
-        console.error('Profile update error:', error);
-        res.status(500).json({ message: "Server error", error: error.message });
+        console.error('Error updating profile:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
