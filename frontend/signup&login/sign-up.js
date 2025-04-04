@@ -27,10 +27,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         const data = await response.json();
         
 
-        localStorage.setItem('userId',data.userId);
+        
         console.log(data.userId);
         if (response.ok) {
-
+            localStorage.setItem('userId', data.userId);
+            console.log('Stored userId in localStorage:', localStorage.getItem('userId'));
             alert('Registration Successful!');
             window.location.href = 'register.html'; // Redirect to login page
         } else {

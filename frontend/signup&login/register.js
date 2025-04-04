@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log('Success:', data);
             alert('Registration successful!');
+            window.location.href = 'frontend/dashboard/homepage.html';
             form.reset();
         })
         .catch(error => {

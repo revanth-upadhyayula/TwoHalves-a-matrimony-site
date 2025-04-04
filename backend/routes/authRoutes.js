@@ -10,6 +10,25 @@ dotenv.config();
 
 const router = express.Router();
 
+
+
+const authenticateToken = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: "Authorization token required" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.id;
+        next();
+    } catch (error) {
+        return res.status(403).json({ message: "Invalid token" });
+    }
+};
+
+
+
 // User Signup
 router.post('/signup', async (req, res) => {
     try {
@@ -94,7 +113,7 @@ router.post('/register', async (req, res) => {
         });
 
         // Log the profile data for debugging
-        console.log('New Profile:', newProfile);
+        // console.log('New Profile:', newProfile);
 
         await newProfile.save();
 
@@ -134,5 +153,78 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
+
+
+// Fetch User Profile (New Endpoint)
+router.get('/profile', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.userId; // Retrieved from the JWT token
+        const profile = await Profile.findOne({ userId }).populate('userId', 'email');
+        if (!profile) {
+            return res.status(404).json({ message: "Profile not found" });
+        }
+
+        res.status(200).json({
+            message: "Profile retrieved successfully",
+            profile: {
+                userId: profile.userId._id,
+                email: profile.userId.email,
+                personalInfo: profile.personalInfo,
+                aboutMe: profile.aboutMe,
+                educationCareer: profile.educationCareer,
+                familyBackground: profile.familyBackground,
+                lifestyle: profile.lifestyle,
+                partnerPreferences: profile.partnerPreferences,
+                contactInfo: profile.contactInfo,
+                createdAt: profile.createdAt
+            }
+        });
+    } catch (error) {
+        console.error('Profile fetch error:', error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
+
+
+// Update User Profile
+router.put('/update-profile', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.userId; // Retrieved from the JWT token
+        const {
+            personalInfo,
+            aboutMe,
+            educationCareer,
+            familyBackground,
+            lifestyle,
+            partnerPreferences,
+            contactInfo
+        } = req.body;
+
+        // Find the existing profile
+        const profile = await Profile.findOne({ userId });
+        if (!profile) {
+            return res.status(404).json({ message: "Profile not found" });
+        }
+
+        // Update the profile fields
+        profile.personalInfo = { ...profile.personalInfo, ...personalInfo };
+        profile.aboutMe = { ...profile.aboutMe, ...aboutMe };
+        profile.educationCareer = { ...profile.educationCareer, ...educationCareer };
+        profile.familyBackground = { ...profile.familyBackground, ...familyBackground };
+        profile.lifestyle = { ...profile.lifestyle, ...lifestyle };
+        profile.partnerPreferences = { ...profile.partnerPreferences, ...partnerPreferences };
+        profile.contactInfo = { ...profile.contactInfo, ...contactInfo };
+
+        await profile.save();
+
+        res.status(200).json({ message: "Profile updated successfully" });
+    } catch (error) {
+        console.error('Profile update error:', error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
 
 export default router;

@@ -2,7 +2,7 @@
 import { Schema, model } from 'mongoose';
 
 const profileSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User
     personalInfo: {
         fullName: { type: String, required: true },
         age: { type: String, required: true },
