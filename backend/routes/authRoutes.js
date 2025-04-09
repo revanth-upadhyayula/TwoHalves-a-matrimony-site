@@ -1,4 +1,3 @@
-// authRoutes.js
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -11,8 +10,7 @@ dotenv.config();
 
 const router = express.Router();
 
-
-
+// Middleware to authenticate token
 const authenticateToken = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
@@ -21,16 +19,14 @@ const authenticateToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.id;
+        req.user = { id: decoded.id }; // Store user info in req.user
         next();
     } catch (error) {
         return res.status(403).json({ message: "Invalid token" });
     }
 };
 
-
-
-// User Signup
+// User Signup (Create User Account)
 router.post('/signup', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -56,7 +52,7 @@ router.post('/signup', async (req, res) => {
         });
         await newUser.save();
 
-        // Generate a JWT token for the user (to link to profile registration)
+        // Generate a JWT token
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.status(201).json({
@@ -70,23 +66,23 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// User Registration (Profile Creation)
-router.post('/register', authMiddleware, async (req, res) => {
+// User Registration (Create Profile)
+router.post('/register', authenticateToken, async (req, res) => {
     try {
         const {
-            userId,
             personalInfo,
             aboutMe,
             educationCareer,
             familyBackground,
             lifestyle,
             partnerPreferences,
-            contactInfo
+            contactInfo,
+            password // Assuming password is sent for initial profile creation with user
         } = req.body;
+        const userId = req.user.id;
 
         // Basic validation for required fields
         if (
-            !userId ||
             !personalInfo?.fullName ||
             !personalInfo?.age ||
             !personalInfo?.dob ||
@@ -99,7 +95,17 @@ router.post('/register', authMiddleware, async (req, res) => {
             !contactInfo?.email ||
             !contactInfo?.phone
         ) {
-            return res.status(400).json({ message: 'All required fields must be provided' });
+            return res.status(400).json({ message: 'All required personal and career fields must be provided' });
+        }
+
+        // Age validation
+        if (personalInfo.age < 18 || personalInfo.age > 100) {
+            return res.status(400).json({ message: 'Age must be between 18 and 100' });
+        }
+
+        // Email validation
+        if (!/\S+@\S+\.\S+/.test(contactInfo.email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
         }
 
         // Check if a profile already exists for this user
@@ -108,20 +114,29 @@ router.post('/register', authMiddleware, async (req, res) => {
             return res.status(400).json({ message: 'Profile already exists for this user' });
         }
 
+        // Update user password if provided (for initial registration)
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await User.findByIdAndUpdate(userId, { password: hashedPassword });
+        }
+
         // Create a new profile
         const profile = new Profile({
             userId,
             personalInfo,
-            aboutMe,
+            aboutMe: aboutMe || {},
             educationCareer,
             familyBackground,
-            lifestyle,
-            partnerPreferences,
+            lifestyle: lifestyle || {},
+            partnerPreferences: partnerPreferences || {},
             contactInfo
         });
 
         // Save the profile to the database
         await profile.save();
+
+        // Associate profile with user (optional, depending on your schema)
+        await User.findByIdAndUpdate(userId, { profile: profile._id });
 
         res.status(201).json({ message: 'Profile created successfully', profile });
     } catch (error) {
@@ -149,24 +164,23 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             token,
             user: {
-                _id: profile._id,
+                _id: user._id,
                 name: profile.personalInfo.fullName,
                 email: profile.contactInfo.email,
                 gender: profile.personalInfo.gender
-            }
+            },
+            profile
         });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
 
-
-
 // Get the user's profile
-router.get('/profile', authMiddleware, async (req, res) => {
+router.get('/profile', authenticateToken, async (req, res) => {
     try {
-        const userId = req.user.id; // Extracted from the JWT token by authMiddleware
-        const profile = await Profile.findOne({ userId });
+        const userId = req.user.id;
+        const profile = await Profile.findOne({ userId }).populate('userId', 'email');
 
         if (!profile) {
             return res.status(404).json({ message: 'Profile not found' });
@@ -179,12 +193,10 @@ router.get('/profile', authMiddleware, async (req, res) => {
     }
 });
 
-
-
 // Update the user's profile
-router.put('/update-profile', authMiddleware, async (req, res) => {
+router.put('/update-profile', authenticateToken, async (req, res) => {
     try {
-        const userId = req.user.id; // Extracted from the JWT token by authMiddleware
+        const userId = req.user.id;
         const {
             personalInfo,
             aboutMe,
@@ -201,7 +213,7 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
             return res.status(404).json({ message: 'Profile not found' });
         }
 
-        // Update the profile fields
+        // Update the profile fields with new values, preserving existing ones if not provided
         profile.personalInfo = { ...profile.personalInfo, ...personalInfo };
         profile.aboutMe = { ...profile.aboutMe, ...aboutMe };
         profile.educationCareer = { ...profile.educationCareer, ...educationCareer };
@@ -209,6 +221,7 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
         profile.lifestyle = { ...profile.lifestyle, ...lifestyle };
         profile.partnerPreferences = { ...profile.partnerPreferences, ...partnerPreferences };
         profile.contactInfo = { ...profile.contactInfo, ...contactInfo };
+        profile.updatedAt = Date.now();
 
         // Save the updated profile
         await profile.save();
@@ -219,6 +232,5 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
-
 
 export default router;

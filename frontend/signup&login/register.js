@@ -1,4 +1,3 @@
-// register.js
 document.addEventListener('DOMContentLoaded', () => {
     // Handle tag inputs (languages, interests, preferred education, preferred occupation, preferred locations)
     const addTagButtons = document.querySelectorAll('.add-tag-btn');
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tag.className = 'tag';
                 tag.textContent = input.value.trim();
 
-                const removeBtn = document.createElement('span'); // Changed to span as per provided code
+                const removeBtn = document.createElement('span');
                 removeBtn.className = 'remove-tag';
                 removeBtn.textContent = '×';
                 removeBtn.onclick = () => tag.remove();
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle form submission
-    const user = localStorage.getItem('userId'); // Retrieve userId from localStorage
+    const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
     const form = document.getElementById('register-form');
 
     form.addEventListener('submit', async (e) => {
@@ -55,9 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             educationCareer: {
                 education: document.getElementById('education').value,
                 university: document.getElementById('university').value,
-                fieldOfStudy: document.getElementById('field-of-study').value,
+                fieldOfStudy: document.getElementById('fieldOfStudy').value,
                 profession: document.getElementById('profession').value,
-                company: document.getElementById('company').value
+                company: document.getElementById('company').value,
+                currentJob: document.getElementById('currentJob').value, // New field
+                achievements: document.getElementById('achievements').value, // New field
+                careerGoals: document.getElementById('careerGoals').value // New field
             },
             familyBackground: {
                 familyType: document.getElementById('family-type').value,
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value
             },
-            userId: user // Use the userId from localStorage
+            userId: userId // Use the userId from localStorage
         };
 
         // Basic form validation
@@ -103,12 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Include password (assuming a hidden input or manual entry is added to register.html)
+        const password = document.getElementById('password')?.value || 'defaultpassword'; // Add password field to form
+        formData.password = password;
+
         // Save to localStorage (for demonstration)
         localStorage.setItem('matrimonyProfile', JSON.stringify(formData));
 
         // Send data to the server using fetch
         try {
             const token = localStorage.getItem('token'); // Retrieve token for authorization
+            if (!token) throw new Error('No authentication token found. Please log in.');
+
             const response = await fetch('http://localhost:5000/api/auth/register', {
                 method: 'POST',
                 headers: {
