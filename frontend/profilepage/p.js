@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Profile Update Success:', data);
             alert('Profile updated successfully!');
             editModal.style.display = 'none';
-            fetchProfileData();
+            fetchProfileData(); // Refresh data after save
         } catch (error) {
             console.error('Profile Update Error:', error);
             alert('An error occurred while updating the profile: ' + error.message);
@@ -228,7 +228,10 @@ async function fetchProfileData() {
         if (hometownElement) hometownElement.textContent = profile.personalInfo?.hometown || 'Not specified';
         
         const interestTags = document.getElementById('interest-tags');
-        if (interestTags) interestTags.innerHTML = (profile.aboutMe?.interests || []).map(interest => `<span>${interest}</span>`).join('') || 'Not specified';
+        if (interestTags) {
+            interestTags.innerHTML = ''; // Clear existing content
+            interestTags.innerHTML = (profile.aboutMe?.interests || []).map(interest => `<span class="tag">${interest}</span>`).join('') || 'Not specified';
+        }
 
         // Family Section
         const familyParagraph = document.querySelector('#family p');
@@ -281,7 +284,7 @@ async function fetchProfileData() {
         if (booksElement) booksElement.textContent = profile.lifestyle?.books || 'Not specified';
 
         // Education Section
-        const educationTabParagraph = document.querySelector('#education p');
+        const educationTabParagraph = document.querySelector('#peducation p');
         if (educationTabParagraph) educationTabParagraph.textContent = 'Education has played a crucial role in shaping my personal and professional journey.';
         
         const highestQualificationElement = document.getElementById('highest-qualification-value');
@@ -327,20 +330,12 @@ async function fetchProfileData() {
         // Contact Information
         const phoneElement = document.getElementById('phone-value');
         if (phoneElement) {
-            if (user.isPremium) {
-                phoneElement.textContent = profile.contactInfo?.phone || 'Not specified';
-            } else {
-                phoneElement.textContent = profile.contactInfo?.phone ? profile.contactInfo.phone.replace(/\d(?=\d{4})/g, 'x') : 'Upgrade to view';
-            }
+            phoneElement.textContent = profile.contactInfo?.phone || 'Not specified';
         }
         
         const emailElement = document.getElementById('email-value');
         if (emailElement) {
-            if (user.isPremium) {
-                emailElement.textContent = profile.contactInfo?.email || 'Not specified';
-            } else {
-                emailElement.textContent = profile.contactInfo?.email ? profile.contactInfo.email.replace(/(.{1}).*?(@.*)/, '$1xxx$2') : 'Upgrade to view';
-            }
+            emailElement.textContent = profile.contactInfo?.email || 'Not specified';
         }
 
         const socialElement = document.getElementById('social-value');
@@ -355,59 +350,59 @@ async function fetchProfileData() {
 }
 
 function populateEditModal(profile) {
-    document.getElementById('full-name').value = profile.personalInfo?.fullName || '';
-    document.getElementById('age').value = profile.personalInfo?.age || '';
-    document.getElementById('dob').value = profile.personalInfo?.dob ? new Date(profile.personalInfo.dob).toISOString().split('T')[0] : '';
-    document.getElementById('gender').value = profile.personalInfo?.gender || 'male';
-    document.getElementById('height').value = profile.personalInfo?.height || '';
-    document.getElementById('marital-status').value = profile.personalInfo?.maritalStatus || 'never-married';
-    document.getElementById('community').value = profile.personalInfo?.community || '';
-    document.getElementById('location').value = profile.personalInfo?.location || '';
-    document.getElementById('hometown').value = profile.personalInfo?.hometown || '';
+    document.getElementById('efull-name').value = profile.personalInfo?.fullName || '';
+    document.getElementById('eage').value = profile.personalInfo?.age || '';
+    document.getElementById('edob').value = profile.personalInfo?.dob ? new Date(profile.personalInfo.dob).toISOString().split('T')[0] : '';
+    document.getElementById('egender').value = profile.personalInfo?.gender || 'male';
+    document.getElementById('eheight').value = profile.personalInfo?.height || '';
+    document.getElementById('emarital-status').value = profile.personalInfo?.maritalStatus || 'never-married';
+    document.getElementById('ecommunity').value = profile.personalInfo?.community || '';
+    document.getElementById('elocation').value = profile.personalInfo?.location || '';
+    document.getElementById('ehometown').value = profile.personalInfo?.hometown || '';
 
-    document.getElementById('education').value = profile.educationCareer?.education || '';
-    document.getElementById('university').value = profile.educationCareer?.university || '';
-    document.getElementById('fieldOfStudy').value = profile.educationCareer?.fieldOfStudy || '';
-    document.getElementById('profession').value = profile.educationCareer?.profession || '';
-    document.getElementById('company').value = profile.educationCareer?.company || '';
-    document.getElementById('currentJob').value = profile.educationCareer?.currentJob || '';
-    document.getElementById('achievements').value = profile.educationCareer?.achievements || '';
-    document.getElementById('careerGoals').value = profile.educationCareer?.careerGoals || '';
+    document.getElementById('eeducation').value = profile.educationCareer?.education || '';
+    document.getElementById('euniversity').value = profile.educationCareer?.university || '';
+    document.getElementById('efieldOfStudy').value = profile.educationCareer?.fieldOfStudy || '';
+    document.getElementById('eprofession').value = profile.educationCareer?.profession || '';
+    document.getElementById('ecompany').value = profile.educationCareer?.company || '';
+    document.getElementById('ecurrentJob').value = profile.educationCareer?.currentJob || '';
+    document.getElementById('eachievements').value = profile.educationCareer?.achievements || '';
+    document.getElementById('ecareerGoals').value = profile.educationCareer?.careerGoals || '';
 
-    document.getElementById('family-type').value = profile.familyBackground?.familyType || '';
-    document.getElementById('siblings').value = profile.familyBackground?.siblings || '';
-    document.getElementById('father-occupation').value = profile.familyBackground?.fatherOccupation || '';
-    document.getElementById('mother-occupation').value = profile.familyBackground?.motherOccupation || '';
-    document.getElementById('family-values').value = profile.familyBackground?.familyValues || '';
-    document.getElementById('family-location').value = profile.familyBackground?.familyLocation || '';
-    document.getElementById('family-background').value = profile.familyBackground?.familyBackground || '';
+    document.getElementById('efamily-type').value = profile.familyBackground?.familyType || '';
+    document.getElementById('esiblings').value = profile.familyBackground?.siblings || '';
+    document.getElementById('efather-occupation').value = profile.familyBackground?.fatherOccupation || '';
+    document.getElementById('emother-occupation').value = profile.familyBackground?.motherOccupation || '';
+    document.getElementById('efamily-values').value = profile.familyBackground?.familyValues || '';
+    document.getElementById('efamily-location').value = profile.familyBackground?.familyLocation || '';
+    document.getElementById('efamily-background').value = profile.familyBackground?.familyBackground || '';
 
-    document.getElementById('diet').value = profile.lifestyle?.diet || 'vegetarian';
-    document.getElementById('drinking').value = profile.lifestyle?.drinking || 'never';
-    document.getElementById('smoking').value = profile.lifestyle?.smoking || 'non-smoker';
-    document.getElementById('fitness').value = profile.lifestyle?.fitness || '';
-    document.getElementById('music').value = profile.lifestyle?.music || '';
-    document.getElementById('movies').value = profile.lifestyle?.movies || '';
-    document.getElementById('travel').value = profile.lifestyle?.travel || '';
-    document.getElementById('books').value = profile.lifestyle?.books || '';
+    document.getElementById('ediet').value = profile.lifestyle?.diet || 'vegetarian';
+    document.getElementById('edrinking').value = profile.lifestyle?.drinking || 'never';
+    document.getElementById('esmoking').value = profile.lifestyle?.smoking || 'non-smoker';
+    document.getElementById('efitness').value = profile.lifestyle?.fitness || '';
+    document.getElementById('emusic').value = profile.lifestyle?.music || '';
+    document.getElementById('emovies').value = profile.lifestyle?.movies || '';
+    document.getElementById('etravel').value = profile.lifestyle?.travel || '';
+    document.getElementById('ebooks').value = profile.lifestyle?.books || '';
 
-    document.getElementById('pref-age-range').value = profile.partnerPreferences?.ageRange || '';
-    document.getElementById('pref-height-range').value = profile.partnerPreferences?.heightRange || '';
-    document.getElementById('partner-preferences').value = profile.partnerPreferences?.preferences || '';
+    document.getElementById('epref-age-range').value = profile.partnerPreferences?.ageRange || '';
+    document.getElementById('epref-height-range').value = profile.partnerPreferences?.heightRange || '';
+    document.getElementById('epartner-preferences').value = profile.partnerPreferences?.preferences || '';
 
-    const languagesList = document.getElementById('languages');
+    const languagesList = document.getElementById('elanguages');
     if (languagesList) languagesList.innerHTML = (profile.aboutMe?.languages || []).map(lang => `<span class="tag">${lang}<span class="remove-tag">×</span></span>`).join('');
-    const interestsList = document.getElementById('interests');
+    const interestsList = document.getElementById('einterests');
     if (interestsList) interestsList.innerHTML = (profile.aboutMe?.interests || []).map(interest => `<span class="tag">${interest}<span class="remove-tag">×</span></span>`).join('');
-    const prefEducationList = document.getElementById('pref-education');
+    const prefEducationList = document.getElementById('epref-education');
     if (prefEducationList) prefEducationList.innerHTML = (profile.partnerPreferences?.education || []).map(edu => `<span class="tag">${edu}<span class="remove-tag">×</span></span>`).join('');
-    const prefOccupationList = document.getElementById('pref-occupation');
+    const prefOccupationList = document.getElementById('epref-occupation');
     if (prefOccupationList) prefOccupationList.innerHTML = (profile.partnerPreferences?.occupation || []).map(occ => `<span class="tag">${occ}<span class="remove-tag">×</span></span>`).join('');
-    const prefLocationsList = document.getElementById('pref-locations');
+    const prefLocationsList = document.getElementById('epref-locations');
     if (prefLocationsList) prefLocationsList.innerHTML = (profile.partnerPreferences?.locations || []).map(loc => `<span class="tag">${loc}<span class="remove-tag">×</span></span>`).join('');
-    const prefMaritalStatusList = document.getElementById('pref-marital-status');
+    const prefMaritalStatusList = document.getElementById('epref-marital-status');
     if (prefMaritalStatusList) prefMaritalStatusList.innerHTML = (profile.partnerPreferences?.maritalStatus ? [profile.partnerPreferences.maritalStatus] : []).map(status => `<span class="tag">${status}<span class="remove-tag">×</span></span>`).join('');
 
-    document.getElementById('email').value = profile.contactInfo?.email || '';
-    document.getElementById('phone').value = profile.contactInfo?.phone || '';
+    document.getElementById('eemail').value = profile.contactInfo?.email || '';
+    document.getElementById('ephone').value = profile.contactInfo?.phone || '';
 }

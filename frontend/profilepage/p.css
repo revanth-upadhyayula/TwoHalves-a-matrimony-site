@@ -5,7 +5,15 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  }
+  
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari, Opera) */
+  *::-webkit-scrollbar {
+    display: none;
+  }
 body {
     background: #f8f8f8;
     display: flex;
@@ -384,6 +392,7 @@ h4 {
     position: relative;
     left: 1.5rem;
     border: 1px solid rgb(230, 230, 230);
+    width: 5.5rem;
 }
 
 /* Contact Info */
