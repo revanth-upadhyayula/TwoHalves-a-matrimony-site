@@ -70,14 +70,14 @@ router.post('/signup', async (req, res) => {
 router.post('/register', authenticateToken, async (req, res) => {
     try {
         const {
-            personalInfo,
-            aboutMe,
-            educationCareer,
-            familyBackground,
-            lifestyle,
-            partnerPreferences,
-            contactInfo,
-            password // Assuming password is sent for initial profile creation with user
+            personalInfo, // Maps to modal IDs: efull-name, eage, edob, egender, eheight, emarital-status, elocation, ehometown, ecommunity
+            aboutMe,     // Maps to modal IDs: eabout, elanguages, einterests
+            educationCareer, // Maps to modal IDs: eeducation, euniversity, efieldOfStudy, eprofession, ecompany, ecurrentJob, eachievements, ecareerGoals
+            familyBackground, // Maps to modal IDs: efamily-type, esiblings, efather-occupation, emother-occupation, efamily-values, efamily-location, efamily-background
+            lifestyle,   // Maps to modal IDs: ediet, edrinking, esmoking, efitness, emusic, emovies, etravel, ebooks
+            partnerPreferences, // Maps to modal IDs: epref-age-range, epref-height-range, epref-education, epref-occupation, epref-locations, epref-marital-status, epartner-preferences
+            contactInfo, // Maps to modal IDs: eemail, ephone
+            password     // Optional password for initial profile creation with user
         } = req.body;
         const userId = req.user.id;
 

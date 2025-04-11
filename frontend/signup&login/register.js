@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             educationCareer: {
                 education: document.getElementById('education').value,
                 university: document.getElementById('university').value,
-                fieldOfStudy: document.getElementById('fieldOfStudy').value,
+                fieldOfStudy: document.getElementById('field-of-study').value,
                 profession: document.getElementById('profession').value,
                 company: document.getElementById('company').value,
-                currentJob: document.getElementById('currentJob').value, // New field
-                achievements: document.getElementById('achievements').value, // New field
-                careerGoals: document.getElementById('careerGoals').value // New field
+                currentJob: document.getElementById('currentJob').value,
+                achievements: document.getElementById('achievements').value,
+                careerGoals: document.getElementById('careerGoals').value
             },
             familyBackground: {
                 familyType: document.getElementById('family-type').value,
