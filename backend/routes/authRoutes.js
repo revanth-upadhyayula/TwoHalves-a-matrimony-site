@@ -186,13 +186,76 @@ router.get('/profile', authenticateToken, async (req, res) => {
             return res.status(404).json({ message: 'Profile not found' });
         }
 
-        res.status(200).json({ profile });
+        // Ensure all fields are present with defaults
+        const responseProfile = {
+            personalInfo: {
+                fullName: profile.personalInfo.fullName,
+                age: profile.personalInfo.age,
+                dob: profile.personalInfo.dob,
+                gender: profile.personalInfo.gender,
+                height: profile.personalInfo.height,
+                maritalStatus: profile.personalInfo.maritalStatus,
+                community: profile.personalInfo.community || '',
+                location: profile.personalInfo.location,
+                hometown: profile.personalInfo.hometown
+            },
+            aboutMe: {
+                about: profile.aboutMe.about || '',
+                languages: profile.aboutMe.languages || [],
+                interests: profile.aboutMe.interests || []
+            },
+            educationCareer: {
+                education: profile.educationCareer.education,
+                university: profile.educationCareer.university,
+                fieldOfStudy: profile.educationCareer.fieldOfStudy || '',
+                profession: profile.educationCareer.profession,
+                company: profile.educationCareer.company || '',
+                currentJob: profile.educationCareer.currentJob || '',
+                achievements: profile.educationCareer.achievements || '',
+                careerGoals: profile.educationCareer.careerGoals || ''
+            },
+            familyBackground: {
+                familyType: profile.familyBackground.familyType,
+                siblings: profile.familyBackground.siblings,
+                fatherOccupation: profile.familyBackground.fatherOccupation,
+                motherOccupation: profile.familyBackground.motherOccupation,
+                familyValues: profile.familyBackground.familyValues || '',
+                familyLocation: profile.familyBackground.familyLocation || '',
+                familyBackground: profile.familyBackground.familyBackground || ''
+            },
+            lifestyle: {
+                diet: profile.lifestyle.diet,
+                drinking: profile.lifestyle.drinking,
+                smoking: profile.lifestyle.smoking,
+                fitness: profile.lifestyle.fitness || '',
+                music: profile.lifestyle.music || '',
+                movies: profile.lifestyle.movies || '',
+                travel: profile.lifestyle.travel || '',
+                books: profile.lifestyle.books || ''
+            },
+            partnerPreferences: {
+                ageRange: profile.partnerPreferences.ageRange || '',
+                heightRange: profile.partnerPreferences.heightRange || '',
+                education: profile.partnerPreferences.education || [],
+                occupation: profile.partnerPreferences.occupation || [],
+                locations: profile.partnerPreferences.locations || [],
+                maritalStatus: profile.partnerPreferences.maritalStatus || '',
+                preferences: profile.partnerPreferences.preferences || ''
+            },
+            contactInfo: {
+                email: profile.contactInfo.email,
+                phone: profile.contactInfo.phone
+            },
+            createdAt: profile.createdAt,
+            updatedAt: profile.updatedAt
+        };
+
+        res.status(200).json({ profile: responseProfile });
     } catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
-
 // Update the user's profile
 router.put('/update-profile', authenticateToken, async (req, res) => {
     try {
